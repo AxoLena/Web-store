@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}">
+{% endblock css %}
+
+{% block modal_cart %}
+    {% include 'includes/cart_button.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="container d-flex align-items-center justify-content-center pt-5">
+    <div class="col-10 mt-5 pt-5 bg-pink rounded align-items-center">
+        <h2 class="m-2 text-center"><strong>{{ content }}</strong></h2>
+        <div class="d-flex justify-content-center pt-5">
+            <ul class="list-unstyled">
+                {% for social,contact in contacts.items %}
+                    <li class="list-img list-item">
+                        <div class="row">
+                            <div class="col">
+                                <p class="form-control contact d-flex justify-content-between">
+                                    <span>{{contact}}</span>
+                                    <button class="copy-btn ml-auto">
+                                        <img width="20px" src="{% static 'deps/icons/copy.svg' %}">
+                                    </button>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+<div>
+
+
+
+{% block footer %}
+    <footer class="py-4 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-dark">Copyright &copy; AxoLena</p>
+        </div>
+    </footer>
+{% endblock footer %}

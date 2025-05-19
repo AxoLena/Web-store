@@ -1,0 +1,52 @@
+services:
+  postgres:
+    image: postgres:16.3
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data/
+    env_file:
+      - .env
+
+  django:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    image: my_django:1.0.0
+    ports:
+      - "8000:8000"
+    container_name: store_django
+    depends_on:
+      - postgres
+    network_mode: host
+    volumes:
+      - ./static:/app/static
+      - ./media:/app/media
+      - ./:/app
+    env_file:
+      - .env
+    command:
+      sh -c "python manage.py collectstatic --no-input && 
+            python manage.py makemigrations && 
+            python manage.py migrate && 
+            python manage.py runserver 0.0.0.0:8000"
+
+  nginx:
+    build:
+      dockerfile: ./Dockerfile
+      context: ./docker/nginx/
+    working_dir: /app
+    container_name: store_nginx
+    image: my_nginx:1.0.0
+    volumes:
+      - ./static:/app/static
+      - ./media:/app/media
+    ports:
+      - "$NGINX_EXTERNAL_PORT:80"
+    depends_on:
+      - django
+
+volumes:
+  static:
+  media:

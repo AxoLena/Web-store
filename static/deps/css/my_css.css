@@ -1,0 +1,267 @@
+
+
+.bg-img-index{
+  background-image: url("../images/bg-image.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center bottom;
+  background-size: 100vw 94.2vh;
+}
+
+.bg-img-others{
+  background-image: url("../images/bg-image-otherpage.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center botom;
+  background-size: 100vw 100vh;
+  max-width: 100%;
+  height: auto;
+}
+
+.btn-item:hover{
+  background-color:#ffa3b9;
+  margin-left:.3rem;
+  border-radius:.6rem;
+}
+
+.dropdown-toggle::after {
+  content: none;
+}
+
+.custom-shadow {
+  box-shadow: 0px 0px 20px 3px #8f8f8f;
+}
+
+.btn-shadow{
+  box-shadow: 0px 0px 10px 1px rgba(183, 138, 147, 0.5);
+}
+
+.product_id {
+  color: gray;
+  font-size: 11px;
+  text-align:left;
+}
+
+.badge.bg-warning.text-dark {
+  position: absolute;
+  top: 10px;
+  right: 5px;
+  z-index: 1;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 1rem;
+  box-shadow: 0px 0px 10px 1px #403f3f7d;
+}
+
+.badge-banner {
+  top: 80%;
+  border-radius: 15px;
+  font-size: 0.7rem;
+}
+
+header {
+/*  position: sticky;*/
+  background-color: rebeccapurple:
+}
+
+.center{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.index-text-title{
+  font-family: 'Title';
+  color: #e57a93;
+  letter-spacing: .47rem;
+  font-size: 5rem;
+  margin-left: 5.3rem;
+  margin-top: 6rem;
+}
+
+.index-text-subtitle{
+  font-family: Verdana;
+  color: #282828ba;
+  font-weight: 300;
+  font-size: 1rem;
+  white-space: pre-line;
+  text-align: right;
+  margin-top: -1.5rem;
+  margin-right: 44.2rem;
+}
+
+.index-text-content{
+  font-family: 'Title';
+  color: transparent;
+  -webkit-baground-clip: text;
+  background-clip: text;
+  background-image: linear-gradient(to right, #2d3838d8, #e57a93);
+  white-space: pre-line;
+  text-align:left;
+  font-weight: 300;
+  font-size: 1.6rem;
+  letter-spacing: .075rem;
+
+}
+
+.m1{
+  margin-left: 3.7rem;
+  margin-top: 3rem;
+  width: 20rem;
+}
+
+.m2{
+  margin-left: 8.5rem;
+  margin-top: 4.5rem;
+  width: 20rem;
+}
+
+.title-txt{
+  font-family: Title;
+  font-size: 1.37rem;
+  letter-spacing: .2rem;
+  font-weight: 400;
+  padding-top: .6rem;
+}
+
+@font-face{
+  font-family: 'Title';
+  src: url(../fonts/TheFlowerCity.otf);
+}
+
+.index-btn{
+  font-family: Verdana;
+  color: #282828ba;
+  font-size: 1.2rem;
+  width: 15rem;
+  height: 6rem;
+  left: 22rem;
+  top: -1rem;
+  padding-left: .5rem;
+  padding-top: 1.9rem;
+  padding-right: .5rem;
+  text-align: center;
+  letter-spacing: .01rem;
+  background: #ffd6e0;
+  box-shadow: 0px 0px 20px 15px #fff3f39b;
+  border-radius: 79% 21% 58% 42% / 49% 30% 70% 51%;
+  position: relative;
+  transition: .6s;
+}
+
+.index-btn:hover{
+  opacity: 1;
+  box-shadow: 0px 0px 20px 20px #e57a9383;
+  box-shadow: 0px 0px 20px 16px #a2a1a12c;
+  border-radius: 67% 33% 72% 28% / 39% 50% 50% 61%;
+}
+
+.title-animation{
+  position: relative;
+}
+
+.title-animation:hover {
+  color: #e57a93;
+}
+
+.title-animation::before {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #e57a93;
+  transform: scaleX(0);
+  transform-origin: top left;
+  transition: transform 0.3s ease;
+}
+
+.title-animation:hover::before {
+  transform: scaleX(1);
+}
+
+.txt-title{
+    margin-left: 11.7rem;
+    margin-top: 2rem
+}
+
+.text-price{
+    font-size: .9rem;
+    padding-top: .5rem;
+}
+
+.card-price{
+    margin-top:5rem;
+}
+
+.part-1{
+    height: 4rem!important;
+}
+
+.part-2{
+    height: 2rem!important;
+}
+
+.href-text{
+    color: #000;
+}
+
+.href-text:hover{
+    color: #ffa3b9;
+}
+
+.card-desc{
+  color: #6b6b6b;
+  text-decoration: underline dotted;
+}
+
+.bg-btn{
+  background-color: #ffd6e0;
+  padding-top: 5px;
+  height: 40px;
+  width: 220px;
+  text-align: center;
+}
+
+.bg-pink{
+  background-color: #ffd6e0cb;
+}
+
+.list-item{
+    font-size: 1.2rem;
+    padding-left: 40px;
+    margin-left: 50px;
+    margin-bottom: 1.25rem;
+}
+
+.list-img{
+    background-repeat: no-repeat;
+    background-size: 30px;
+    background-position: 0px 8px;
+}
+
+.list-img:first-child{
+  background-image: url('../icons/github-mark.svg');
+}
+
+.list-img:nth-child(2){
+  background-image: url('../icons/tg-logo.svg');
+}
+
+.list-img:last-child{
+  background-image: url('../icons/gmail-icon.png');
+}
+
+.select-active{
+  background-color: #ffd6e0cb;
+}
+
+.copy-btn{
+  background-color: transparent;
+  border: none;
+}
+
+.copy-btn:hover {
+    filter: brightness(0) saturate(100%) invert(91%) sepia(39%) saturate(4078%) hue-rotate(280deg) brightness(92%) contrast(91%);
+}

@@ -1,0 +1,146 @@
+{% load static %}
+{% load cache %}
+{% load goods_tags %}
+{% url 'main:about' as the_url_about %}
+{% url 'main:index' as the_url_index %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "deps/css/bootstrap/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "deps/css/my_css.css" %}">
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=<3df8f669-e58b-4de3-9940-465d0301c76c>" type="text/javascript"></script>
+
+    {% block add_css%}{% endblock add_css %}
+
+    <!-- Стиль footer-a для главной страницы -->
+    {% block css%}{% endblock css %}
+
+    <!-- Favicons for different platforms -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static "deps/favicon/apple-touch-icon.png" %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static "deps/favicon/favicon-32x32.png" %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static "deps/favicon/favicon-16x16.png" %}">
+    <link rel="manifest" href="{% static "deps/favicon/site.webmanifest" %}">
+    <title>{{ title }}</title>
+</head>
+
+<body
+    {% if request.path == the_url_index %}
+        class="bg-img-index"
+    {% else %}
+        class="bg-img-others"
+    {% endif %}>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-dark z-2" data-bs-theme="dark">
+            <div class="container">
+                <a class="navbar-brand title-txt title-animation" href="{% url 'main:index' %}">HOMAGE</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown ">
+                            <a class="nav-link dropdown-toggle z-2 text-black btn-item" href="#" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Информация
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item  text-black" href="{% url 'main:contacts' %}">Контактная информация</a></li>
+                                <li><a class="dropdown-item  text-black" href="{% url 'main:about' %}">О сайте</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link  text-black btn-item" href="{% url 'users:users_cart' %}">Корзина</a>
+                        </li>
+                        {% if not user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link  text-black btn-item" href="{% url 'users:login' %}">Войти</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item dropdown ">
+                            <a class="nav-link dropdown-toggle text-black btn-item" href="#" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Мой профиль
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item  text-black" href="{% url 'users:users_cart' %}">Корзина</a></li>
+                                <li><a class="dropdown-item  text-black" href="{% url 'users:profile' %}">Личный кабинет</a>
+                                </li>
+                                {% if user.is_admin or user.is_staff %}
+                                <li><a class="dropdown-item  text-black" href="{% url 'admin:index' %}">Админ панель</a></li>
+                                {% endif %}
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item  text-black" href="{% url 'users:logout' %}">Выйти</a></li>
+                            </ul>
+                        </li>
+                        {% endif %}
+                    </ul>
+                    <form class="d-flex" role="search" action="{% url 'goods:search' %}" method="get">
+                        <input class="form-control me-2" type="search" name="q" placeholder="Поиск по сайту" aria-label="Search">
+                            <button class="btn btn-outline-success text-black q " type="submit">Поиск</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <section>
+        <div class="container pt-6">
+            <!-- Каталог и корзина с фиксированным расположением на странице -->
+            <div class="row mt-1 position-fixed z-4 ">
+                <!-- Каталог -->
+                <div class="dropdown mb-2 ">
+                    <button class="btn btn-secondary dropdown-toggle btn-dark
+                    {% if request.path != the_url_index and request.path != the_url_about  %}
+                     btn-shadow
+                    {% endif %}
+                    " type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" style="color:#000">
+                        Каталог
+                        <img class="mx-1" src="{% static "deps/icons/grid-fill.svg" %}" alt="Catalog Icon" width="16"
+                            height="16">
+                    </button>
+                    <ul class="dropdown-menu " data-bs-theme="dark">
+                        {% cache 60 catalog_categories %}
+                        {% tag_categories as categories %}
+                        {% for category in categories %}
+                            <li><a class="dropdown-item text-black" href="{% url 'goods:index' category.slug %}">{{category.name}}</a></li>
+                        {% endfor %}
+                        {% endcache %}
+                    </ul>
+                </div>
+                <!-- Значек корзины, вызывает модальное окно -->
+                    {% block modal_cart %}{% endblock modal_cart %}
+                <!-- Закончилась разметка модального окна -->
+            </div>
+        </div>
+        <!-- Контент -->
+        <div class="container">
+            <div class="row mt-1">
+                <div class="col-lg-2">
+                    <!-- Пустой блок на Ваше усмотрение -->
+                </div>
+                <div class="col-lg-10">
+                    <!-- Контент на странице -->
+                    {% include "includes/notifications.html" %}
+                    {% block content %}{% endblock content %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% block footer %}{% endblock footer %}
+
+    <script src="{% static "deps/js/jquery/jquery-3.7.0.min.js" %}"></script>
+    <script src="{% static "deps/js/jquery-ajax.js" %}"></script>
+    <script src="{% static "deps/js/bootstrap/bootstrap.bundle.min.js" %}"></script>
+</body>
+
+</html>

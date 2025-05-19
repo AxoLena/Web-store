@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}">
+{% endblock css %}
+
+{% block modal_cart %}
+    {% include 'includes/cart_button.html' %}
+{% endblock %}
+
+{% block content %}
+    <h1 class="index-text-title">{{ title_page }}</h1>
+    <h2 class="index-text-subtitle">{{ subtitle }}</h2>
+    <h3 class="index-text-content m1">Любовь к себе - это первый шаг к красоте.</h3>
+    <h3 class="index-text-content m2">Подарите себе любовь и заботу с нашей косметикой!</h3>
+    <a class="btn-item nav-link index-btn" href="{% url 'goods:index' category_slug='vse-tovary' %}">К покупкам ❯</a>
+{% endblock content %}

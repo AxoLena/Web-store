@@ -1,0 +1,7 @@
+.idea
+db.sqlite3
+media/
+cache/
+assets/
+.env
+pgdata/

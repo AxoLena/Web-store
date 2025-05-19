@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block modal_cart %}
+    {% include 'includes/cart_button.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+            <div class="row mt-1">
+                <div class="col-lg-10">
+                    <!-- Контент на странице -->
+                    <div class="container mt-5">
+                        <div class="card mb-4 custom-shadow">
+                            <div class="row-nowrap">
+                                <!-- Миниатюры -->
+                                <div class="col-md-8">
+                                    <img src="{{ product.image.url }}"
+                                        class="img-thumbnail" data-bs-toggle="modal" data-bs-target="#imageModal1">
+                                    <p class="product_id mt-3 m-4 p-2">id: {{ product.display_id }}</p>
+                                </div>
+                                <!-- Увеличить изображение в модальном окне -->
+                                <div class="modal fade" id="imageModal1" tabindex="-1"
+                                    aria-labelledby="imageModal1Label" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="imageModal1Label">{{ product.name }}</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Закрыть"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <img src="{{ product.image.url }}"
+                                                    class="img-fluid" alt="Изображение 1">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Описание товара -->
+                                 <div class="card-body m-4 pt-7">
+                                    <h5 class="card-title mb-3">{{ product.name }}</h5>
+                                    {% if product.discount %}
+                                        <span class="badge bg-warning text-dark">Скидка {{ product.discount }} %</span>
+                                        <p class="card-text"><s>{{ product.price }}</s> ₽</p>
+                                        <p class="card-text"><strong>{{ product.discount_price }} ₽</strong></p>
+                                    {% else %}
+                                        <p class="card-text">Цена: <strong>{{ product.discount_price }} ₽</strong></p>
+                                    {% endif %}
+                                    <a href="{% url 'carts:cart_add' %}" class="btn btn-dark add-to-cart mx-4" data-product-id="{{ product.id }}">
+                                        {% csrf_token %}
+                                        Добавить в корзину</a>
+                                 </div>
+                            </div>
+                            <div>
+                                <p class="mx-4 card-desc">Описание товара:</p>
+                                <p class="card-text-left mx-5">{{ product.description }}</p>
+                                <p class="mx-4 card-desc">Состав товара:</p>
+                                <p class="card-text-left mx-5">{{ product.composition }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock content %}
